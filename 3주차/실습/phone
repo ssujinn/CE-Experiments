@@ -1,0 +1,18 @@
+if [ $# -ne 0 ]	#입력이 있으면 (입력된 파라미터 개수가 0이 아니면)
+then
+	str=""	#str변수 설정
+	for sch in $@	#입력된 모든 파라미터에 대해 수행
+	do
+		if [ -n "$str" ]	#str변수가 NOT NULL이면
+		then
+			str="$str|$sch"	#원래 str변수 뒤에 sch변수를 붙인다 (sch는 현재 파라미터, |는 or 연산자(egrep))
+		else
+			str="$sch"	#그렇지 않으면 str변수에 sch변수를 저장한다
+		fi	
+	done	#모든 인자를 다 붙여서 하나의 문자열로 만듬 (str변수에 저장되어 있다)
+	egrep -i "$str" mydata | awk -f display.awk
+	#egrep을 사용하여 str에 저장된 인자를 mydata에서 검색한 후 일치하는 항목은 display.awk 형식에 맞춰 출력한다
+else	#입력된 파라미터의 개수가 0이면 아래와 같은 에러메세지를 출력한다
+	echo "Usage : phone searchfor[...searechfor]"
+	echo "(You didn't tell me what you want to search for.)"
+fi

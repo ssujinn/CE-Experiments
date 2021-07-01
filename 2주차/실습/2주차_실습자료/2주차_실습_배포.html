@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>   <TITLE> javascript_album_practice </TITLE>
+<meta charset="utf-8">
+ </HEAD>
+
+<BODY>
+<CENTER>
+	<table border="0" cellpadding="3" bgcolor=#000000 width=300>
+		<tr height=300>
+			<td align="center">
+				<!---- 처음 보여줄 그림 ---->
+				<img src="pic/0.jpg" name="gallary">
+			</td>
+		</tr>
+		<tr>
+			<td align="center">
+				<form name="menu">
+
+					<script>
+						// 그림 수만큼 Array 할당
+						pic_arr = new Array(9);
+						
+						// 현재 위치를 나타내는 변수 which
+						var which = 0;
+						
+						// array 각 원소에 사진파일명 저장
+						for(i=0;i<9;i++){
+							pic_arr[i] = "pic/"+i+".jpg";
+						}
+						
+						// 'forward>>'를 누르면 실행되는 함수
+						function forward(){
+							// 현재 위치가 마지막 그림이면 처음으로
+							if(which == 8)
+								which = 0;
+							// 그렇지 않으면 현재 위치를 1 올린다
+							else
+								which++;
+							
+							// "gallary"에 현재 위치에 해당하는 사진을 표시한다
+							document.getElementsByName("gallary")[0].src = pic_arr[which];
+						}
+						
+						// '<<backward'를 누르면 실행되는 함수
+						function backward(){
+							// 현재 위치가 처음 그림이면 마지막 그림으로
+							if(which == 0)
+								which = 8;
+							// 그렇지 않으면 현재 위치를 1 내린다
+							else
+								which--;
+							
+							// "gallary"에 현재 위치에 해당하는 사진을 표시한다
+							document.getElementsByName("gallary")[0].src = pic_arr[which];
+						}
+					</script>
+
+					<input type="button" value="<<backward" onClick="backward()" />
+					<!---- start는 which가 1일 때 backward()함수를 실행하면 첫 사진을 표시할 수 있다 ---->
+					<input type="button" value="start" onClick="which=1;backward()" />
+					<input type="button" value="forward>>"  onClick="forward()" />
+				</form>
+			</td>
+		</tr>
+	</table>
+</CENTER>
+</BODY>
+</HTML>
